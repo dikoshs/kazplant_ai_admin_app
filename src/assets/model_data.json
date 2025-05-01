@@ -1,0 +1,32 @@
+{
+    "model": {
+      "name": "StreetSceneNet",
+      "version": "1.0.0",
+      "created_at": "2025-04-20",
+      "status": "Active",
+      "accuracy": "94.8%",
+      "parameters": 84500000,
+      "description": "Нейросеть, распознающая городские объекты на 3D-рендерах улиц."
+    },
+    "stats": {
+      "inference_per_min": 125,
+      "training_epochs": 48,
+      "gpu_usage": "76%",
+      "memory": "12.3 GB"
+    },
+    "performance": [
+      { "month": "Jan", "loss": 0.95, "val_loss": 1.10 },
+      { "month": "Feb", "loss": 0.80, "val_loss": 0.92 },
+      { "month": "Mar", "loss": 0.65, "val_loss": 0.75 },
+      { "month": "Apr", "loss": 0.50, "val_loss": 0.60 },
+      { "month": "May", "loss": 0.40, "val_loss": 0.55 },
+      { "month": "Jun", "loss": 0.35, "val_loss": 0.50 }
+    ],
+    "tasks": [
+      { "title": "Подготовить датасет", "progress": 100 },
+      { "title": "Тренировка модели", "progress": 85 },
+      { "title": "Валидация результатов", "progress": 60 },
+      { "title": "Деплой на сервер", "progress": 0 }
+    ]
+  }
+  
