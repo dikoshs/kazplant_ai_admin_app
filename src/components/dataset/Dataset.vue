@@ -8,7 +8,7 @@
         Train
       </div>
       <div class="relative">
-        <Carousel v-bind="config" class="relative">
+        <Carousel v-bind="config">
           <Slide
             v-for="(item, index) in items" :key="index"
           >
@@ -53,7 +53,7 @@
         Valid
       </div>
       <div class="relative">
-        <Carousel v-bind="config" class="relative">
+        <Carousel v-bind="config">
           <Slide
             v-for="(item, index) in items" :key="index"
           >
@@ -106,7 +106,7 @@
         Train
       </div>
       <div class="relative">
-        <Carousel v-bind="config" class="relative">
+        <Carousel v-bind="config">
           <Slide
             v-for="(item, index) in items" :key="index"
           >
@@ -151,7 +151,7 @@
         Valid
       </div>
       <div class="relative">
-        <Carousel v-bind="config" class="relative">
+        <Carousel v-bind="config">
           <Slide
             v-for="(item, index) in items" :key="index"
           >
@@ -232,10 +232,10 @@ export default {
       config: {
         wrapAround: false,
         height: 300,
-        itemsToShow: 3,
+        itemsToShow: 1,
         snapAlign: 'start',
         gap: 10,
-        breakpoints: { 640: { itemsToShow: 2 }, 1024: { itemsToShow: 3 } }
+        breakpoints: { 640: { itemsToShow: 2}, 1024: { itemsToShow: 4 } }
       }
     }
   },

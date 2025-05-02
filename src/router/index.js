@@ -4,6 +4,7 @@ import LoginPage from '../components/account/Login.vue';
 import Dashboard from '../components/dashboard/Dashboard.vue';
 import NotFound from '../components/errors/NotFound.vue';
 import Dataset from '../components/dataset/Dataset.vue';
+import DatasetIndex from '../components/dataset/DatasetIndex.vue';
 import Models from '../components/models/Models.vue';
 import Settings from '../components/settings/Settings.vue';
 import Model from '../components/models/Model.vue';
@@ -54,6 +55,11 @@ const routes = [
         path: '/test',
         name: 'Test',
         component: Test,
+    },
+    {
+        path: '/dataset_index',
+        name: 'DatasetIndex',
+        component: DatasetIndex,
     },
 ];
 
