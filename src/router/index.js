@@ -7,6 +7,7 @@ import Dataset from '../components/dataset/Dataset.vue';
 import Models from '../components/models/Models.vue';
 import Settings from '../components/settings/Settings.vue';
 import Model from '../components/models/Model.vue';
+import Test from '../components/test/Test.vue';
 
 const routes = [
     {
@@ -48,6 +49,11 @@ const routes = [
         path: '/model',
         name: 'Model',
         component: Model,
+    },
+    {
+        path: '/test',
+        name: 'Test',
+        component: Test,
     },
 ];
 

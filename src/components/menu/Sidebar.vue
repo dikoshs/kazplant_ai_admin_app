@@ -40,7 +40,8 @@
     { name: 'Dashboard', to: '/dashboard' },
     { name: 'Dataset', to: '/dataset' },
     { name: 'Models', to: '/models' },
-    { name: 'Settings', to: '/settings' }
+    { name: 'Settings', to: '/settings' },
+    { name: 'Test', to: '/test' }
   ]
   </script>
   
