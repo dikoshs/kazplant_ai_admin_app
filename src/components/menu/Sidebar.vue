@@ -1,7 +1,7 @@
 <template>
     <div class="flex min-h-screen bg-gray-100">
       <aside class="w-64 bg-[#3B7254] text-white shadow-lg flex-shrink-0">
-        <div class="p-6 text-2xl font-medium border-b border-[#2F6342]">
+        <div class="p-6 text-center text-2xl font-medium border-b border-[#2F6342]">
             KazPlant AI
         </div>
         <nav class="px-4 py-6 flex flex-col items-center">
@@ -41,7 +41,6 @@
     { name: 'Dataset', to: '/dataset' },
     { name: 'Models', to: '/models' },
     { name: 'Settings', to: '/settings' },
-    { name: 'Test', to: '/test' }
   ]
   </script>
   

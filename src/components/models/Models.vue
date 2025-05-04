@@ -24,38 +24,49 @@
     </div>
   </template>
   
-  <script setup>
-  import { reactive } from 'vue'
-  import ModelCard from './ModelCard.vue'
-  
-  const models = reactive([
-    {
-      id: 1,
-      name: 'ResNet-50',
-      lastTrain: '2025-04-25',
-      params: '25.6 млн',
-      classes: 1000,
-      top1: '76.2%',
-      epochs: 90,
-    },
-    {
-      id: 2,
-      name: 'EfficientNet-B0',
-      lastTrain: '2025-04-20',
-      params: '5.3 млн',
-      classes: 1000,
-      top1: '77.1%',
-      epochs: 350,
-    },
-  ])
-  
-  function addModel() {
-    alert('Добавление новой модели')
+<script setup>
+import { reactive, onMounted } from 'vue'
+import ModelCard from './ModelCard.vue'
+import { useModelStore } from '../../stores/model'
+
+const modelStore = useModelStore();
+
+const models = reactive([
+  {
+    id: 1,
+    name: 'ResNet-50',
+    lastTrain: '2025-04-25',
+    params: '25.6 млн',
+    classes: 1000,
+    top1: '76.2%',
+    epochs: 90,
+  },
+  {
+    id: 2,
+    name: 'EfficientNet-B0',
+    lastTrain: '2025-04-20',
+    params: '5.3 млн',
+    classes: 1000,
+    top1: '77.1%',
+    epochs: 350,
+  },
+])
+
+function addModel() {
+  alert('Добавление новой модели')
+}
+
+function deleteModel(id) {
+  const index = models.findIndex(m => m.id === id)
+  if (index !== -1) models.splice(index, 1)
+}
+
+onMounted(async () => {
+  const modelsInfo = await modelStore.fetchModels();
+
+  if (Array.isArray(modelsInfo)) {
+    models.splice(0, models.length, ...modelsInfo);
   }
-  
-  function deleteModel(id) {
-    const index = models.findIndex(m => m.id === id)
-    if (index !== -1) models.splice(index, 1)
-  }
-  </script>
-  
+});
+
+</script>

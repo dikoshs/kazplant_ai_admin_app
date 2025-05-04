@@ -1,25 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Main from '../components/Main.vue';
-import LoginPage from '../components/account/Login.vue';
 import Dashboard from '../components/dashboard/Dashboard.vue';
 import NotFound from '../components/errors/NotFound.vue';
 import Dataset from '../components/dataset/Dataset.vue';
-import DatasetIndex from '../components/dataset/DatasetIndex.vue';
 import Models from '../components/models/Models.vue';
 import Settings from '../components/settings/Settings.vue';
 import Model from '../components/models/Model.vue';
-import Test from '../components/test/Test.vue';
 
 const routes = [
     {
         path: '/',
         name: 'Home',
         component: Main,
-    },
-    {
-        path: '/login',
-        name: 'LoginPage',
-        component: LoginPage,
     },
     {
         path: '/dashboard',
@@ -50,16 +42,6 @@ const routes = [
         path: '/model',
         name: 'Model',
         component: Model,
-    },
-    {
-        path: '/test',
-        name: 'Test',
-        component: Test,
-    },
-    {
-        path: '/dataset_index',
-        name: 'DatasetIndex',
-        component: DatasetIndex,
     },
 ];
 
