@@ -12,7 +12,7 @@
           />
 
           <div class="text-lg font-medium">
-            Bibity Babity Boom
+            Jhon Doe
           </div>
           <div class="mt-4 w-full space-y-2">
             <RouterLink

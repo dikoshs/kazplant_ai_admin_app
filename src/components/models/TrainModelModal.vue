@@ -40,16 +40,35 @@
         </div>
 
         <div class="mt-4">
-          <label class="block text-sm font-medium text-green-600 mb-1" for="nameModel">
-            Название модели (необязательно)
+          <label class="block text-sm font-medium text-green-600 mb-1" for="learningRate">
+            Скорость обучения
           </label>
           <input
-            id="nameModel"
-            v-model="nameModel"
-            type="text"
-            placeholder="Введите название модели"
+            id="learningRate"
+            v-model.number="learningRate"
+            type="number"
+            min="0"
+            step="0.0001"
+            placeholder="Введите скорость обучения (например, 0.001)"
             class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+            @input="validateLearningRate"
           />
+        </div>
+
+        <div class="mt-4">
+          <label class="block text-sm font-medium text-green-600 mb-1" for="optimizer">
+            Оптимизатор
+          </label>
+          <select
+            id="optimizer"
+            v-model="optimizer"
+            class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+          >
+            <option value="" disabled>Выберите оптимизатор</option>
+            <option value="Adam">Adam</option>
+            <option value="RMSProp">RMSProp</option>
+            <option value="SGD">SGD</option>
+          </select>
         </div>
 
         <div v-if="error" class="text-red-500 text-sm mt-2">{{ error }}</div>
@@ -89,14 +108,16 @@ const props = defineProps({
 const emit = defineEmits(['update:visible', 'create']);
 
 // Reactive state
-const epoch = ref(null);
-const batch = ref(null);
-const nameModel = ref('');
+const epoch = ref('');
+const batch = ref('');
+const learningRate = ref('');
+const optimizer = ref('');
 const error = ref('');
 
 // Validation
 const validateEpoch = () => {
-  if (!Number.isInteger(epoch.value) || epoch.value <= 0) {
+  const value = Number(epoch.value);
+  if (!Number.isInteger(value) || value <= 0) {
     error.value = 'Количество эпох должно быть целым числом больше 0';
   } else {
     error.value = '';
@@ -104,16 +125,41 @@ const validateEpoch = () => {
 };
 
 const validateBatch = () => {
-  if (!Number.isInteger(batch.value) || batch.value <= 0) {
+  const value = Number(batch.value);
+  if (!Number.isInteger(value) || value <= 0) {
     error.value = 'Размер батча должен быть целым числом больше 0';
   } else {
     error.value = '';
   }
 };
 
+const validateLearningRate = () => {
+  const value = Number(learningRate.value);
+  if (isNaN(value) || value <= 0) {
+    error.value = 'Скорость обучения должна быть числом больше 0';
+  } else {
+    error.value = '';
+  }
+};
+
 const isValid = computed(() => {
-  const valid = Number.isInteger(epoch.value) && epoch.value > 0 && Number.isInteger(batch.value) && batch.value > 0;
-  console.log('isValid:', valid, { epoch: epoch.value, batch: batch.value, nameModel: nameModel.value });
+  const epochValue = Number(epoch.value);
+  const batchValue = Number(batch.value);
+  const learningRateValue = Number(learningRate.value);
+  const valid =
+    Number.isInteger(epochValue) &&
+    epochValue > 0 &&
+    Number.isInteger(batchValue) &&
+    batchValue > 0 &&
+    !isNaN(learningRateValue) &&
+    learningRateValue > 0 &&
+    ['Adam', 'RMSProp', 'SGD'].includes(optimizer.value);
+  console.log('isValid:', valid, {
+    epoch: epochValue,
+    batch: batchValue,
+    learningRate: learningRateValue,
+    optimizer: optimizer.value,
+  });
   return valid;
 });
 
@@ -121,24 +167,35 @@ const isValid = computed(() => {
 const close = () => {
   console.log('Closing TrainModelModal');
   emit('update:visible', false);
-  epoch.value = null;
-  batch.value = null;
-  nameModel.value = '';
+  epoch.value = '';
+  batch.value = '';
+  learningRate.value = '';
+  optimizer.value = '';
   error.value = '';
+  // Reset input fields
+  const epochInput = document.getElementById('epoch');
+  const batchInput = document.getElementById('batch');
+  const learningRateInput = document.getElementById('learningRate');
+  const optimizerInput = document.getElementById('optimizer');
+  if (epochInput) epochInput.value = '';
+  if (batchInput) batchInput.value = '';
+  if (learningRateInput) learningRateInput.value = '';
+  if (optimizerInput) optimizerInput.value = '';
 };
 
 const confirm = () => {
   if (isValid.value) {
     const payload = {
-      epoch: epoch.value,
-      batch: batch.value,
-      name_model: nameModel.value.trim() || undefined,
+      epoch: Number(epoch.value),
+      batch: Number(batch.value),
+      learning_rate: Number(learningRate.value),
+      optimizer: optimizer.value,
     };
     console.log('Confirming, emitting create event with:', payload);
     emit('create', payload);
     close();
   } else {
-    error.value = 'Заполните обязательные поля (эпохи и батч должны быть целыми числами > 0)';
+    error.value = 'Заполните все обязательные поля корректно';
     console.log('Validation failed');
   }
 };
